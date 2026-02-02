@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react';
 import { Heart, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-// Declare YouTube IFrame API types
 declare global {
   interface Window {
     YT: any;
@@ -20,13 +19,11 @@ export default function SuccessPage() {
   useEffect(() => {
     setIsVisible(true);
 
-    // Load YouTube IFrame API
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
 
-    // Initialize player when API is ready
     window.onYouTubeIframeAPIReady = () => {
       if (!playerContainerRef.current) return;
 
@@ -51,7 +48,6 @@ export default function SuccessPage() {
             event.target.playVideo();
           },
           onStateChange: (event: any) => {
-            // Loop the video when it ends
             if (event.data === window.YT.PlayerState.ENDED) {
               event.target.seekTo(45);
               event.target.playVideo();
@@ -61,7 +57,6 @@ export default function SuccessPage() {
       });
     };
 
-    // Cleanup
     return () => {
       if (playerRef.current) {
         try {
@@ -75,7 +70,6 @@ export default function SuccessPage() {
 
   const toggleMute = () => {
     if (!playerRef.current || !isPlayerReady) return;
-
     if (isMuted) {
       playerRef.current.unMute();
       setIsMuted(false);
@@ -87,12 +81,10 @@ export default function SuccessPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-200 via-rose-200 to-red-200 dark:from-pink-900 dark:via-rose-900 dark:to-red-900 overflow-hidden relative">
-      {/* Hidden YouTube player */}
       <div ref={playerContainerRef} className="absolute opacity-0 pointer-events-none">
         <div id="youtube-player"></div>
       </div>
 
-      {/* Mute/Unmute toggle button - top right */}
       {isPlayerReady && (
         <Button
           onClick={toggleMute}
@@ -109,7 +101,6 @@ export default function SuccessPage() {
         </Button>
       )}
 
-      {/* Animated background hearts */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <Heart
@@ -135,7 +126,7 @@ export default function SuccessPage() {
       >
         <div className="mb-8 animate-bounce-slow">
           <img
-            src="/assets/STK-20260131-WA0002.webp"
+            src={`${import.meta.env.BASE_URL}assets/STK-20260131-WA0002.webp`}
             alt="Valentine"
             className="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full shadow-2xl border-8 border-rose-300 dark:border-rose-700 object-cover"
           />
