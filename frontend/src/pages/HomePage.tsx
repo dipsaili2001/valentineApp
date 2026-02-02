@@ -28,19 +28,18 @@ export default function HomePage({ onYesClick }: HomePageProps) {
       Math.pow(clientX - buttonCenterX, 2) + Math.pow(clientY - buttonCenterY, 2)
     );
 
-    // If pointer is within 180px of the button, move it away (runs before you can click)
-    if (distance < 180) {
-      const maxX = containerRect.width - rect.width - 40;
-      const maxY = containerRect.height - rect.height - 40;
+    // Large trigger radius - runs away before cursor/touch can reach it
+    if (distance < 250) {
+      const padding = 20;
+      const maxX = Math.max(0, containerRect.width - rect.width - padding);
+      const maxY = Math.max(0, containerRect.height - rect.height - padding);
 
-      // Generate random position away from pointer
       let newX = Math.random() * maxX;
       let newY = Math.random() * maxY;
 
-      // Ensure the new position is far enough from the pointer
-      const minDistance = 250;
+      const minDistance = 300;
       let attempts = 0;
-      while (attempts < 10) {
+      while (attempts < 15) {
         const distanceFromPointer = Math.sqrt(
           Math.pow(clientX - (containerRect.left + newX + rect.width / 2), 2) +
           Math.pow(clientY - (containerRect.top + newY + rect.height / 2), 2)
@@ -59,32 +58,33 @@ export default function HomePage({ onYesClick }: HomePageProps) {
   };
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      moveNoButton(e.clientX, e.clientY);
+    const handlePointer = (clientX: number, clientY: number) => {
+      moveNoButton(clientX, clientY);
     };
+
+    const handleMouseMove = (e: MouseEvent) => handlePointer(e.clientX, e.clientY);
 
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        moveNoButton(touch.clientX, touch.clientY);
+        handlePointer(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
 
     const handleTouchStart = (e: TouchEvent) => {
       if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        moveNoButton(touch.clientX, touch.clientY);
+        handlePointer(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    // Use document for reliable touch/mouse capture on all devices
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('touchmove', handleTouchMove, { passive: true });
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchstart', handleTouchStart);
     };
   }, []);
 
@@ -104,7 +104,7 @@ export default function HomePage({ onYesClick }: HomePageProps) {
           (psst... the No button is a little shy)
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 items-center justify-center">
+        <div className="flex flex-col sm:flex-row gap-6 items-center justify-center relative min-h-[120px] w-full">
           <Button
             onClick={onYesClick}
             size="lg"

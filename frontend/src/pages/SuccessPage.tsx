@@ -125,19 +125,13 @@ export default function SuccessPage() {
         }`}
       >
         <div className="mb-8 animate-bounce-slow">
-          <img
-            src={`${import.meta.env.BASE_URL}assets/STK-20260131-WA0002.webp`}
-            alt="Valentine"
-            className="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full shadow-2xl border-8 border-rose-300 dark:border-rose-700 object-cover"
-          />
-        </div>
-
-        <div className="mb-6">
-          <img
-            src="https://media.giphy.com/media/4N1wOi78ZGzSB6H7vK/giphy.gif"
-            alt="Cute hearts"
-            className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-2xl object-cover"
-          />
+          <div className="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full shadow-2xl border-8 border-rose-300 dark:border-rose-700 overflow-hidden bg-rose-100 dark:bg-rose-900/30">
+            <img
+              src="https://media.giphy.com/media/4N1wOi78ZGzSB6H7vK/giphy.gif"
+              alt="Cute hearts"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
 
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-rose-600 dark:text-rose-400 animate-pulse-slow">
