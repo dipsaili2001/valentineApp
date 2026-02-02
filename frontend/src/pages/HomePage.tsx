@@ -97,7 +97,7 @@ export default function HomePage({ onYesClick }: HomePageProps) {
 
       <div className="relative z-10 text-center px-4 animate-in fade-in duration-1000 flex-1 flex flex-col items-center justify-center">
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-rose-600 dark:text-rose-400 animate-in zoom-in duration-700">
-          Anushka will you be my Valentine 👉👈?
+          Hey, will you be my Valentine 👉👈?
         </h1>
 
         <p className="text-rose-500 dark:text-rose-400 text-sm mb-8 animate-in fade-in duration-1000 delay-150">
@@ -124,7 +124,7 @@ export default function HomePage({ onYesClick }: HomePageProps) {
               transition: 'all 0.3s ease-out',
             }}
           >
-            No 💔
+            No 😢💔
           </Button>
         </div>
       </div>
