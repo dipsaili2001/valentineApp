@@ -124,7 +124,7 @@ export default function HomePage({ onYesClick }: HomePageProps) {
               transition: 'all 0.3s ease-out',
             }}
           >
-            No 💔
+            No 😢💔
           </Button>
         </div>
       </div>
