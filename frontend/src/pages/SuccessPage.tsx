@@ -132,6 +132,14 @@ export default function SuccessPage() {
           />
         </div>
 
+        <div className="mb-6">
+          <img
+            src="https://media.giphy.com/media/4N1wOi78ZGzSB6H7vK/giphy.gif"
+            alt="Cute hearts"
+            className="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-2xl object-cover"
+          />
+        </div>
+
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-rose-600 dark:text-rose-400 animate-pulse-slow">
           Yay! I knew you'd say yes 💖
         </h1>
