@@ -28,8 +28,8 @@ export default function HomePage({ onYesClick }: HomePageProps) {
       Math.pow(clientX - buttonCenterX, 2) + Math.pow(clientY - buttonCenterY, 2)
     );
 
-    // If pointer is within 100px of the button, move it away
-    if (distance < 100) {
+    // If pointer is within 180px of the button, move it away (runs before you can click)
+    if (distance < 180) {
       const maxX = containerRect.width - rect.width - 40;
       const maxY = containerRect.height - rect.height - 40;
 
@@ -38,7 +38,7 @@ export default function HomePage({ onYesClick }: HomePageProps) {
       let newY = Math.random() * maxY;
 
       // Ensure the new position is far enough from the pointer
-      const minDistance = 200;
+      const minDistance = 250;
       let attempts = 0;
       while (attempts < 10) {
         const distanceFromPointer = Math.sqrt(
@@ -97,7 +97,7 @@ export default function HomePage({ onYesClick }: HomePageProps) {
 
       <div className="relative z-10 text-center px-4 animate-in fade-in duration-1000 flex-1 flex flex-col items-center justify-center">
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-rose-600 dark:text-rose-400 animate-in zoom-in duration-700">
-          Anushka will you be my Valentine 👉👈?
+          Will you be my Valentine 👉👈?
         </h1>
 
         <p className="text-rose-500 dark:text-rose-400 text-sm mb-8 animate-in fade-in duration-1000 delay-150">
@@ -116,7 +116,7 @@ export default function HomePage({ onYesClick }: HomePageProps) {
           <Button
             ref={noButtonRef}
             size="lg"
-            className="text-lg px-12 py-6 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 animate-in slide-in-from-bottom-4 delay-150 touch-none"
+            className="text-lg px-12 py-6 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 animate-in slide-in-from-bottom-4 delay-150 touch-none pointer-events-none select-none cursor-default"
             style={{
               position: isNoButtonMoved ? 'absolute' : 'relative',
               left: isNoButtonMoved ? `${noButtonPosition.x}px` : 'auto',
